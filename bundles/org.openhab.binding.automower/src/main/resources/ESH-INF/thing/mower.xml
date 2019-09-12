@@ -4,10 +4,14 @@
 	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
 	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
 
-	<!-- Sample Thing Type -->
-	<thing-type id="sample">
-		<label>Automower Binding Thing</label>
-		<description>Sample thing for Automower Binding</description>
+	<!-- Husqvarna Automower -->
+	<thing-type id="mower">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="amcapi" />
+		</supported-bridge-type-refs>
+
+		<label>Husqvarna Automower</label>
+		<description>A Husqvarna Automower</description>
 
 		<channels>
 			<channel id="channel1" typeId="sample-channel" />
@@ -23,10 +27,17 @@
 	</thing-type>
 
 	<!-- Sample Channel Type -->
-	<channel-type id="sample-channel">
-		<item-type>automowerItem</item-type>
-		<label>Automower Binding Channel</label>
-		<description>Sample channel for Automower Binding</description>
+
+	<channel-type id="name">
+		<item-type>name</item-type>
+		<label>Automower name</label>
+		<description>Name of the Automower</description>
+	</channel-type>
+
+	<channel-type id="model">
+		<item-type>model</item-type>
+		<label>Automower model</label>
+		<description>Model of the Automower</description>
 	</channel-type>
 
 </thing:thing-descriptions>

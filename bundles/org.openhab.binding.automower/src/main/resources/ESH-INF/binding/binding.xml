@@ -4,7 +4,7 @@
 	xsi:schemaLocation="https://openhab.org/schemas/binding/v1.0.0 https://openhab.org/schemas/binding-1.0.0.xsd">
 
 	<name>Automower Binding</name>
-	<description>This is the binding for Automower.</description>
+	<description>This is the binding for Husqvarna Automower robot lawn mowers.</description>
 	<author>Martin Hagelin</author>
 
 </binding:binding>

@@ -15,6 +15,10 @@ package org.openhab.binding.automower.internal;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * The {@link AutomowerBindingConstants} class defines common constants, which are
  * used across the whole binding.
@@ -26,9 +30,18 @@ public class AutomowerBindingConstants {
 
     private static final String BINDING_ID = "automower";
 
+    // The URL to use to connect to AMC API with.
+    public static final String SERVICE_URL = "https://api.amc.husqvarna.dev/v1/";
+
     // List of all Thing Type UIDs
-    public static final ThingTypeUID THING_TYPE_SAMPLE = new ThingTypeUID(BINDING_ID, "sample");
+    public static final ThingTypeUID APIBRIDGE_THING_TYPE = new ThingTypeUID(BINDING_ID, "amcapi");
+    public static final ThingTypeUID MOWER_THING_TYPE = new ThingTypeUID(BINDING_ID, "mower");
 
     // List of all Channel ids
-    public static final String CHANNEL_1 = "channel1";
+    public static final String NAME = "name";
+    public static final String MODEL = "model";
+
+    // List of all adressable things in OH = SUPPORTED_DEVICE_THING_TYPES_UIDS + the virtual bridge
+    public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Stream
+            .of(APIBRIDGE_THING_TYPE, MOWER_THING_TYPE).collect(Collectors.toSet());
 }

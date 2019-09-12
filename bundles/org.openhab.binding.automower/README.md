@@ -54,3 +54,5 @@ _Provide a full usage example based on textual configuration files (*.things, *.
 ## Any custom content here!
 
 _Feel free to add additional sections for whatever you think should also be mentioned about your binding!_
+
+Documentation from Husqvarna is available at http://developer.1609.cloud

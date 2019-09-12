@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="automower"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Automower Connect Bridge -->
+	<bridge-type id="amcapi">
+		<label>Automower Connect API</label>
+		<description>This bridge represents the gateway to Automower Connect API.</description>
+		<config-description-ref uri="thing-type:automower:amcapi" />
+	</bridge-type>
+
+</thing:thing-descriptions>
