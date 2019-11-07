@@ -1,0 +1,258 @@
+swagger: '2.0'
+info:
+  title: Authentication API
+  description: The Authentication API
+  version: "1.0.0"
+# the domain of the service
+host: api.authentication.husqvarnagroup.dev
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /oauth2/token:
+    post:
+      summary: OAuth2 login
+      description: |
+        Get an access_token via the password grant type
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - in: formData
+          name: client_id
+          type: string
+          description: Client id
+        - in: formData
+          name: grant_type
+          type: string
+          description: Grant type
+        - in: formData
+          name: username
+          type: string
+          description: User name
+        - in: formData
+          name: password
+          type: string
+          description: Password
+
+      tags:
+        - OAuth2
+      responses:
+        201:
+          description: Token info
+          schema:
+            $ref: '#/definitions/PostOAuth2Response'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+
+  /token/{access_token}:
+    get:
+      summary: Validate Husqvarna token
+      security:
+        - APIKeyHeader: []
+        - AuthorizationHeader: []
+      description: |
+        Validate Husqvarna access token
+      parameters:
+        - name: x-api-key
+          in: header
+          description: apikey
+          required: true
+          type: string
+          format: string
+        - name: access_token
+          in: path
+          required: true
+          type: string
+      tags:
+        - Token
+      responses:
+        201:
+          description: Token info
+          schema:
+            $ref: '#/definitions/ValidateTokenResponse'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+    delete:
+      summary: Logout
+      security:
+        - APIKeyHeader: []
+      description: |
+        Logout user
+      parameters:
+        - name: x-api-key
+          in: header
+          description: apikey
+          required: true
+          type: string
+          format: string
+        - name: access_token
+          in: path
+          required: true
+          type: string
+
+      tags:
+        - Token
+      responses:
+        204:
+          description: No content
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+
+  /users/{user_id}:
+    get:
+      summary: Get user information
+      security:
+        - APIKeyHeader: []
+        - AuthorizationHeader: []
+      description: A user can only get his own information.
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token
+          required: true
+          type: string
+          format: string
+        - name: x-api-key
+          in: header
+          description: apikey
+          required: true
+          type: string
+          format: string
+        - name: Authorization-Provider
+          in: header
+          description: Access token provider
+          required: true
+          type: string
+          format: string
+        - name: user_id
+          in: path
+          description: The id of the user.
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        200:
+          description: User data
+          schema:
+            $ref: '#/definitions/GetUsersResponse'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not found
+
+definitions:
+  PostOAuth2Response:
+    type: object
+    properties:
+      access_token:
+        type: string
+        description: Access token
+      scope:
+        type: string
+        description: Scope
+      expires_in:
+        type: number
+        description: Timestamp expires in seconds
+      refresh_token:
+        type: string
+        description: Refresh token
+      provider:
+        type: string
+        description: Token provider
+      user_id:
+        type: string
+        description: User id
+      token_type:
+        type: string
+        description: Bearer
+
+  GetUsersResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          type:
+            type: string
+          id:
+            type: string
+            description: The user id
+          attributes:
+            type: object
+            properties:
+              username:
+                type: string
+                description: The email address for the user
+              first_name:
+                type: string
+                description: User first name
+              last_name:
+                type: string
+                description: User last name
+              country:
+                type: string
+                description: The country code for the user (ISO 3166-1 alpha-2)
+              language:
+                type: string
+                description: The language code for the user (ISO 639-1)
+              disabled:
+                type: boolean
+                description: If this field is true it means that the user isn't activated
+              groups:
+                type: array
+                items:
+                  type: string
+  ValidateTokenResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['token']
+          id:
+            type: string
+            description: Token
+          attributes:
+            type: object
+            properties:
+              provider:
+                type: string
+                description: Provider
+              user_id:
+                type: string
+                description: User id
+              expires_in:
+                type: number
+                description: Time left in seconds for token to expire
+              client_id:
+                type: string
+                description: Id for client
+              scope:
+                type: string
+                description: Scope
+
+securityDefinitions:
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: x-api-key
+   # Authorization: Bearer 123123141434134123
+   AuthorizationHeader:
+     type: apiKey
+     in: header
+     name: Authorization
