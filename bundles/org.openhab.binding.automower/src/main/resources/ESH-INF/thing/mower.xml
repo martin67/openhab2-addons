@@ -13,34 +13,51 @@
         <label>Husqvarna Automower</label>
         <description>A Husqvarna Automower</description>
 
-        <channels>
-            <channel id="channel1" typeId="sample-channel"/>
-        </channels>
+        <channel-groups>
+            <channel-group typeId="system" id="system"/>
+            <channel-group typeId="battery" id="battery"/>
+            <channel-group typeId="mowerApp" id="mowerApp"/>
+            <channel-group typeId="calendar" id="calendar"/>
+            <channel-group typeId="planner" id="planner"/>
+            <channel-group typeId="metadata" id="metadata"/>
+        </channel-groups>
+
+        <representation-property>id</representation-property>
 
         <config-description>
-            <parameter name="config1" type="text" required="true">
-                <label>Sample Parameter</label>
-                <description>This is a sample text configuration parameter</description>
+            <parameter name="id" type="text" required="true">
+                <label>Automower ID</label>
+                <description>Identity of the mower</description>
             </parameter>
         </config-description>
-
     </thing-type>
 
-    <!-- Sample Channel Type -->
-    <channel-groups>
-        <channel-group typeId="system" id="system"/>
-    </channel-groups>
+    <channel-group-type id="system">
+        <label>System</label>
+        <channel-type id="name">
+            <item-type>name</item-type>
+            <label>Name</label>
+            <description>The name given to the mower by the user</description>
+        </channel-type>
+        <channel-type id="model">
+            <item-type>model</item-type>
+            <label>Model</label>
+            <description>The model of the mower</description>
+        </channel-type>
+        <channel-type id="serialNumber">
+            <item-type>serialNumber</item-type>
+            <label>Serial number</label>
+            <description>The serial number for the mower</description>
+        </channel-type>
+    </channel-group-type>
 
-    <channel-type id="name">
-        <item-type>name</item-type>
-        <label>Automower name</label>
-        <description>Name of the Automower</description>
-    </channel-type>
-
-    <channel-type id="model">
-        <item-type>model</item-type>
-        <label>Automower model</label>
-        <description>Model of the Automower</description>
-    </channel-type>
+    <channel-group-type id="battery">
+        <label>Battery</label>
+        <channel-type id="batteryPercent">
+            <item-type>batteryPercent</item-type>
+            <label>Battery</label>
+            <description>The current battery level percentage</description>
+        </channel-type>
+    </channel-group-type>
 
 </thing:thing-descriptions>

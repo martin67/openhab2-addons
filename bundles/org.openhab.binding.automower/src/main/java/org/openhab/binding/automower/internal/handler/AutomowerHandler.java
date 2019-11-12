@@ -21,17 +21,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link MowerHandler} is responsible for handling commands, which are sent
+ * The {@link AutomowerHandler} is responsible for handling commands, which are sent
  * to one of the channels.
  *
  * @author Gaël L'hopital - Initial contribution
  * @author Martin Hagelin - Copied to Automower binding
  */
 @NonNullByDefault
-public class MowerHandler extends BaseThingHandler {
-    private final Logger logger = LoggerFactory.getLogger(MowerHandler.class);
+public class AutomowerHandler extends BaseThingHandler {
+    private final Logger logger = LoggerFactory.getLogger(AutomowerHandler.class);
 
-    public MowerHandler(Thing thing, MowerStateDescriptionProvider stateDescriptionProvider) {
+    public AutomowerHandler(Thing thing, AutomowerStateDescriptionProvider stateDescriptionProvider) {
         super(thing);
     }
 

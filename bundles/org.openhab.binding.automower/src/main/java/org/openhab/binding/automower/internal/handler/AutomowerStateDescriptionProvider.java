@@ -26,9 +26,9 @@ import org.osgi.service.component.annotations.Reference;
  * @author Gaël L'hopital - Copied as-is in VolvoOnCall binding
  * @author Martin Hagelin - Copied as-is in Automower binding
  */
-@Component(service = {DynamicStateDescriptionProvider.class, MowerStateDescriptionProvider.class})
+@Component(service = {DynamicStateDescriptionProvider.class, AutomowerStateDescriptionProvider.class})
 @NonNullByDefault
-public class MowerStateDescriptionProvider extends BaseDynamicStateDescriptionProvider {
+public class AutomowerStateDescriptionProvider extends BaseDynamicStateDescriptionProvider {
 
     @Reference
     protected void setChannelTypeI18nLocalizationService(

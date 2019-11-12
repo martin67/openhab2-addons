@@ -29,8 +29,8 @@ import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.automower.internal.discovery.AutomowerDiscoveryService;
 import org.openhab.binding.automower.internal.handler.AutomowerBridgeHandler;
-import org.openhab.binding.automower.internal.handler.MowerHandler;
-import org.openhab.binding.automower.internal.handler.MowerStateDescriptionProvider;
+import org.openhab.binding.automower.internal.handler.AutomowerHandler;
+import org.openhab.binding.automower.internal.handler.AutomowerStateDescriptionProvider;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -49,7 +49,8 @@ import org.slf4j.LoggerFactory;
 public class AutomowerHandlerFactory extends BaseThingHandlerFactory {
     private Logger logger = LoggerFactory.getLogger(AutomowerHandlerFactory.class);
     private Map<ThingUID, ServiceRegistration<?>> discoveryServiceRegs = new HashMap<>();
-    private @NonNullByDefault({}) MowerStateDescriptionProvider stateDescriptionProvider;
+    private @NonNullByDefault({})
+    AutomowerStateDescriptionProvider stateDescriptionProvider;
     private @NonNullByDefault({}) OAuthClientService oAuthService;
 
     @Override
@@ -66,7 +67,7 @@ public class AutomowerHandlerFactory extends BaseThingHandlerFactory {
             registerDeviceDiscoveryService(bridgeHandler);
             return bridgeHandler;
         } else if (thingTypeUID.equals(MOWER_THING_TYPE) && stateDescriptionProvider != null) {
-            return new MowerHandler(thing, stateDescriptionProvider);
+            return new AutomowerHandler(thing, stateDescriptionProvider);
         } else {
             logger.warn("ThingHandler not found for {}", thing.getThingTypeUID());
             return null;
@@ -97,11 +98,11 @@ public class AutomowerHandlerFactory extends BaseThingHandlerFactory {
     }
 
     @Reference
-    protected void setDynamicStateDescriptionProvider(MowerStateDescriptionProvider provider) {
+    protected void setDynamicStateDescriptionProvider(AutomowerStateDescriptionProvider provider) {
         this.stateDescriptionProvider = provider;
     }
 
-    protected void unsetDynamicStateDescriptionProvider(MowerStateDescriptionProvider provider) {
+    protected void unsetDynamicStateDescriptionProvider(AutomowerStateDescriptionProvider provider) {
         this.stateDescriptionProvider = null;
     }
 }

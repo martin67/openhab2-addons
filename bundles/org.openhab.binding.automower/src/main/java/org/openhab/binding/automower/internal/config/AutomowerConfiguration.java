@@ -10,7 +10,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.automower.internal;
+package org.openhab.binding.automower.internal.config;
 
 /**
  * The {@link AutomowerConfiguration} class contains fields mapping thing configuration parameters.
@@ -18,9 +18,5 @@ package org.openhab.binding.automower.internal;
  * @author Martin Hagelin - Initial contribution
  */
 public class AutomowerConfiguration {
-
-    /**
-     * Sample configuration parameter. Replace with your own.
-     */
-    public String config1;
+    public String id;
 }
